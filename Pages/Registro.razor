@@ -1,0 +1,22 @@
+﻿@page "/Registro"
+
+<h3>Registro</h3>
+
+<EditForm Model="Inscripcion" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="IdInput">InscripcionId</label>
+        <InputNumber Id="IdInput" @bind-Value="Inscripcion.InscripcionId" class="form-group"></InputNumber>
+    </div>
+
+</EditForm>
+
+    @code {
+
+        public Inscripcion Inscripcion = new Inscripcion();
+        public string mensaje = "";
+
+
+
+    }
