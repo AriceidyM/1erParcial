@@ -1,0 +1,39 @@
+﻿@page "/Consulta"
+
+<h3>Consulta</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Semestre</th>
+            <th>Limite</th>
+            <th>Tomados</th>
+            <th>Dispoibles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in lista)
+        {
+            <tr>
+                <th>@item.Semestre</th>
+                <th>@item.Limite</th>
+                <th>@item.Tomados</th>
+                <th>@item.Dispoibles</th>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+@code {
+    public List<Inscripcion> lista;
+
+    protected override void OnInitialized()
+    {
+        InscripcionController controller = new InscripcionController();
+
+        lista = controller.GetArticulos(e => true);
+    }
+
+}

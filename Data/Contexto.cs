@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Parcial.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace Parcial.Data
 {
     public class Contexto: DbContext
     {
+        public DbSet<Inscripcion> Inscripcion { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(@"Data Source= Database/Parcial.db");

@@ -8,7 +8,37 @@
     <div class="form-group">
         <label for="IdInput">InscripcionId</label>
         <InputNumber Id="IdInput" @bind-Value="Inscripcion.InscripcionId" class="form-group"></InputNumber>
+        <button type="button" class="btn btn-outline-primary mt-2" @onclick="Buscar">Buscar</button>
     </div>
+
+    <div class="form-group">
+        <label for="SemestreInput">Semestre</label>
+        <InputText Id="SemestreInput" @bind-Value="Inscripcion.Semestre" class="form-control"></InputText>
+    </div>
+
+    <div class="form-group">
+        <label for="LimiteInput">Limite</label>
+        <InputNumber Id="LimiteInput" @bind-Value="Inscripcion.Limite" @oninput="Calcular" @onfocusin="Calcular" @onfocusout="Calcular" class="form-control"></InputNumber>
+    </div>
+
+    <div class="form-group">
+        <label for="TomadosInput">Tomados</label>
+        <InputNumber Id="TomadosInput" @bind-Value="Inscripcion.Tomados" @oninput="Calcular" @onfocusin="Calcular" @onfocusout="Calcular" class="form-control"></InputNumber>
+    </div>
+
+    <div class="form-group">
+        <label for="DisponiblesInput">Disponibles</label>
+        <InputNumber Id="DisponiblesInput" @bind-Value="Inscripcion.Dispoibles" class="form-control" ReadOnly="true"></InputNumber>
+    </div>
+
+    <div>
+        <button class="btn btn-outline-secondary" type="button" @onclick="Limpiar">Limpiar</button>
+        <button class="btn btn-outline-success" type="submit">Guardar</button>
+        <button class="btn btn-outline-danger" type="button" @onclick="Eliminar">Eliminar</button>
+    </div>
+
+    <ValidationSummary />
+    <h5>@mensaje</h5>
 
 </EditForm> 
 
@@ -17,6 +47,70 @@
         public Inscripcion Inscripcion = new Inscripcion();
         public string mensaje = "";
 
+        public void Guardar()
+        {
+            Calcular();
+            InscripcionController controller = new InscripcionController();
 
+            if (controller.Guardar(Inscripcion))
+            {
+                this.Inscripcion = new Inscripcion();
+                mensaje = "Inscripcion Guardada";
+            }
+            else
+            {
+                this.Inscripcion = new Inscripcion();
+                mensaje = "Error al guardar";
+            }
 
+        }
+
+        private void Limpiar()
+        {
+            Inscripcion = new Inscripcion();
+        }
+
+        public void Buscar()
+        {
+            InscripcionController controller = new InscripcionController();
+
+            var inscripcion = controller.Buscar(Inscripcion.InscripcionId);
+
+            if (inscripcion != null)
+            {
+                Inscripcion = inscripcion;
+            }
+            else
+            {
+                this.Inscripcion = new Inscripcion();
+                mensaje = "Inscripcion no encontrado";
+            }
+        }
+
+        public void Eliminar()
+        {
+            InscripcionController controller = new InscripcionController();
+
+            var inscripcion = controller.Buscar(Inscripcion.InscripcionId);
+
+            if (inscripcion != null)
+            {
+                if (controller.Eliminar(Inscripcion.InscripcionId))
+                {
+                    this.Inscripcion = new Inscripcion();
+                    mensaje = "Inscripcion Eliminada";
+                }
+                else
+                {
+                    this.Inscripcion = new Inscripcion();
+                    mensaje = "Error al Eliminar";
+                }
+            }
+
+        }
+
+        public void Calcular()
+        {
+            Inscripcion.Dispoibles = Inscripcion.Limite - Inscripcion.Tomados;
+        }
     }
