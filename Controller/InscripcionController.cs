@@ -96,7 +96,7 @@ namespace Parcial.Controller
             return paso;
         }
 
-        public List<Inscripcion> GetArticulos(Expression<Func<Inscripcion, bool>> expression)
+        public List<Inscripcion> GetInscripcion(Expression<Func<Inscripcion, bool>> expression)
         {
             List<Inscripcion> lista;
             Contexto db = new Contexto();
