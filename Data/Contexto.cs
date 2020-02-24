@@ -9,6 +9,9 @@ namespace Parcial.Data
 {
     public class Contexto: DbContext
     {
+        public DbSet<Pagos> Pagos { get; set; }
+        public DbSet<Estudiantes> Estudiantes { get; set; }
+        public DbSet<Asignatura> Asignatura { get; set; }
         public DbSet<Inscripcion> Inscripcion { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

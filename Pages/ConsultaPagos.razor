@@ -1,0 +1,40 @@
+﻿@page "/ConsultaPagos"
+
+<h3>ConsultaPagos</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>PagoId</th>
+            <th>Fecha</th>
+            <th>InscripcionId</th>
+            <th>Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in lista)
+        {
+        <tr>
+            <th>@item.PagoId</th>
+            <th>@item.Fecha</th>
+            <th>@item.InscripcionId</th>
+            <th>@item.Monto</th>
+        </tr>
+
+        }
+    </tbody>
+
+</table>
+
+
+@code {
+    public List<Pagos> lista;
+
+    protected override void OnInitialized()
+    {
+        PagoController controller = new PagoController();
+
+        lista = controller.GetPagos(e => true);
+    }
+
+}

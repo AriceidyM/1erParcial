@@ -5,6 +5,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>InscripcionId</th>
             <th>Semestre</th>
             <th>Limite</th>
             <th>Tomados</th>
@@ -14,12 +15,13 @@
     <tbody>
         @foreach (var item in lista)
         {
-            <tr>
-                <th>@item.Semestre</th>
-                <th>@item.Limite</th>
-                <th>@item.Tomados</th>
-                <th>@item.Dispoibles</th>
-            </tr>
+        <tr>
+            <th>@item.InscripcionId</th>
+            <th>@item.Semestre</th>
+            <th>@item.Limite</th>
+            <th>@item.Tomados</th>
+            <th>@item.Dispoibles</th>
+        </tr>
         }
     </tbody>
 

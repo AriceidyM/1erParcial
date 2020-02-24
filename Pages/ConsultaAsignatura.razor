@@ -1,0 +1,42 @@
+﻿@page "/ConsultaAsignatura"
+
+<h3>ConsultaAsignatura</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>AsignaturaId</th>
+            <th>Codigo</th>
+            <th>Descripcion</th>
+            <th>PreRequisito</th>
+            <th>Creditos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in lista)
+        {
+        <tr>
+            <th>@item.AsignaturaId</th>
+            <th>@item.Codigo</th>
+            <th>@item.Descripcion</th>
+            <th>@item.PreRequisito</th>
+            <th>@item.Creditos</th>
+        </tr>
+            
+        }
+    </tbody>
+
+</table>
+
+
+@code {
+    public List<Asignatura> lista;
+
+    protected override void OnInitialized()
+    {
+        AsignaturaController controller = new AsignaturaController();
+
+        lista = controller.GetAsignatura(e => true);
+    }
+
+}
