@@ -13,6 +13,7 @@ namespace Parcial.Data
         public DbSet<Estudiantes> Estudiantes { get; set; }
         public DbSet<Asignatura> Asignatura { get; set; }
         public DbSet<Inscripcion> Inscripcion { get; set; }
+        public DbSet<InscripcionDetalle> InscripcionDetalles { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(@"Data Source= Database/Parcial.db");

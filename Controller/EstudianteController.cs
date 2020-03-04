@@ -37,23 +37,36 @@ namespace Parcial.Controller
 
         private bool Insertar(Estudiantes Estudiantes)
         {
-            Contexto db = new Contexto();
+            Contexto contexto = new Contexto();
             bool paso = false;
 
-            db.Estudiantes.Add(Estudiantes);
-            paso = db.SaveChanges() > 0;
-
+            try
+            {
+                contexto.Estudiantes.Add(Estudiantes);
+                paso = contexto.SaveChanges() > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             return paso;
         }
 
         private bool Modificar(Estudiantes Estudiantes)
         {
-            Contexto db = new Contexto();
+            Contexto contexto = new Contexto();
             bool paso = false;
 
-            db.Estudiantes.Add(Estudiantes).State = EntityState.Modified;
-            paso = db.SaveChanges() > 0;
-
+            try
+            {
+                contexto.Estudiantes.Add(Estudiantes);
+                contexto.Entry(Estudiantes).State = EntityState.Modified;
+                paso = contexto.SaveChanges() > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             return paso;
         }
 
@@ -84,15 +97,13 @@ namespace Parcial.Controller
             {
                 estudiantes = db.Estudiantes.Find(id);
                 db.Entry(estudiantes).State = EntityState.Deleted;
-
                 paso = db.SaveChanges() > 0;
+
             }
             catch (Exception)
             {
-
                 throw;
             }
-
             return paso;
         }
 

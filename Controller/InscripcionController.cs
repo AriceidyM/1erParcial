@@ -37,12 +37,24 @@ namespace Parcial.Controller
 
         private bool Insertar(Inscripcion inscripcion)
         {
-            Contexto db = new Contexto();
+            Contexto contexto = new Contexto();
+            EstudianteController db = new EstudianteController();
+
             bool paso = false;
 
-            db.Inscripcion.Add(inscripcion);
-            paso = db.SaveChanges() > 0;
+            try
+            {
+                var estudiante = db.Buscar(inscripcion.EstudianteId);
+                estudiante.Balance += inscripcion.Monto;
 
+                db.Guardar(estudiante);
+                contexto.Inscripcion.Add(inscripcion);
+                paso = contexto.SaveChanges() > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             return paso;
         }
 

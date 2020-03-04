@@ -37,23 +37,36 @@ namespace Parcial.Controller
 
         private bool Insertar(Asignatura asignatura)
         {
-            Contexto db = new Contexto();
+            Contexto contexto = new Contexto();
             bool paso = false;
 
-            db.Asignatura.Add(asignatura);
-            paso = db.SaveChanges() > 0;
-
+            try
+            {
+                contexto.Asignatura.Add(asignatura);
+                paso = contexto.SaveChanges() > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             return paso;
         }
 
         private bool Modificar(Asignatura asignatura)
         {
-            Contexto db = new Contexto();
+            Contexto contexto = new Contexto();
             bool paso = false;
 
-            db.Asignatura.Add(asignatura).State = EntityState.Modified;
-            paso = db.SaveChanges() > 0;
-
+            try
+            {
+                contexto.Asignatura.Add(asignatura);
+                contexto.Entry(asignatura).State = EntityState.Modified;
+                paso = contexto.SaveChanges() > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             return paso;
         }
 
@@ -76,23 +89,21 @@ namespace Parcial.Controller
 
         public bool Eliminar(int id)
         {
-            Contexto db = new Contexto();
+            Contexto contexto = new Contexto();
             bool paso = false;
             Asignatura asignatura = new Asignatura();
 
             try
             {
-                asignatura = db.Asignatura.Find(id);
-                db.Entry(asignatura).State = EntityState.Deleted;
+                asignatura = contexto.Asignatura.Find(id);
+                contexto.Entry(asignatura).State = EntityState.Deleted;
+                paso = contexto.SaveChanges() > 0;
 
-                paso = db.SaveChanges() > 0;
             }
             catch (Exception)
             {
-
                 throw;
             }
-
             return paso;
         }
 
